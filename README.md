@@ -1,46 +1,84 @@
-# TP2 - Application Quiz Flutter
+# 🎬 Application Films & Quiz - Flutter
 
 ## 📱 Description du projet
 
-Application mobile développée dans le cadre du **TP2 - Création d'un Quiz** pour le cours de développement d'applications mobiles (S6). Cette application Flutter propose un quiz interactif avec un système de questions-réponses et un calcul de score.
+Application mobile complète développée dans le cadre du cours de développement d'applications mobiles (S6). Cette application Flutter combine une bibliothèque de films interactive avec un système de recommandation basé sur un quiz de préférences personnalisé.
 
 ## 👨‍🎓 Informations
 
 - **Étudiant** : Mael Valin
 - **Semestre** : S6
 - **Cours** : Développement d'applications mobiles
-- **Travail** : TP2 - Création d'un Quizz
+- **Travail** : Application de gestion de films avec système de recommandation
 
-## ✨ Fonctionnalités
+## ✨ Fonctionnalités principales
 
-### Quiz Interactif
-- **Questions à choix multiples** : Questions sur des informations personnelles
-- **Système de sélection** : Sélection visuelle d'une réponse avant validation
-- **Bouton "Suivant"** : Débloqué uniquement après avoir sélectionné une réponse
-- **Compteur de progression** : Affichage du nombre de questions (ex: "Questions : 1 / 4")
-- **Calcul du score** : Score final affiché à la fin du quiz
-- **Messages personnalisés** : Feedback adapté selon le score obtenu
+### 🎬 Page Films (Page principale)
+- **Catalogue de films** : Liste de 15 films avec affiches, années et descriptions
+- **Design moderne** : Cards avec dégradés bleus et mise en page élégante
+- **Système de favoris** : 
+  - Ajout/retrait de films en favoris d'un simple clic
+  - Badge avec compteur de favoris dans l'AppBar
+  - Icône cœur qui change de couleur selon l'état
+- **Lecteur vidéo intégré** : 
+  - Appui long sur un film pour voir sa bande-annonce
+  - Lecteur WebView intégré pour YouTube
+  - Dialog modal avec contrôles de lecture
+- **Navigation fluide** : Accès rapide aux favoris et au quiz
 
-### Page Portfolio
-- **En-tête avec profil** : Photo de profil et image de fond
-- **Carte d'informations** : Nom, date de naissance, ville, profession
-- **Carte QR Code** : Lien vers YouTube
-- **Icônes technologies** : Affichage des technologies maîtrisées
+### 🎯 Quiz de Recommandation de Genre
+- **Quiz intelligent** : 5 questions pour déterminer les préférences de genre
+- **8 genres analysés** : 
+  - Action
+  - Science-Fiction
+  - Drame
+  - Aventure
+  - Romance
+  - Thriller
+  - Animation
+  - Comédie
+- **Système de points** : Algorithme de scoring sophistiqué pour chaque réponse
+- **Barre de progression** : Suivi visuel de l'avancement du quiz
+- **Interface intuitive** : Boutons stylisés avec feedback visuel
 
-### Splash Screen
-- **Splash screen personnalisé** : Logo blanc sur fond sombre (#232323)
-- **Support Android 12+** : Configuration spécifique pour les nouvelles versions d'Android
-- **Mode plein écran** : Masquage de la barre de notification
+### 🏆 Page de Résultats du Quiz
+- **Top 3 des genres** : Affichage des genres préférés avec scores
+- **Recommandations personnalisées** : 3 films suggérés selon les préférences
+- **Podium visuel** : Badges or, argent, bronze pour le classement
+- **Détails des films** : Affiches, descriptions et années
+- **Actions disponibles** :
+  - Visualisation des bandes-annonces (appui long)
+  - Possibilité de refaire le quiz
+- **Design attractif** : Gradient matching avec le thème de l'app
+
+### ❤️ Page Favoris
+- **Collection personnelle** : Tous les films marqués comme favoris
+- **Gestion facilitée** : Retrait rapide des favoris
+- **Interface cohérente** : Même design que la page principale
+- **État synchronisé** : Mise à jour en temps réel
+
+### 👤 Page Profil
+- **En-tête personnalisé** : Photo de profil et image de fond
+- **Informations personnelles** : Nom, date de naissance, ville, profession
+- **QR Code** : Lien vers contenu externe
+- **Technologies** : Affichage des compétences techniques
+
+### 🎨 Splash Screen
+- **Splash screen professionnel** : Logo sur fond sombre (#232323)
+- **Support Android 12+** : Configuration adaptée aux nouvelles versions
+- **Mode plein écran** : Expérience immersive au démarrage
 
 ## 🛠️ Technologies utilisées
 
-- **Flutter** : Framework de développement
+- **Flutter** : Framework de développement cross-platform
 - **Dart** : Langage de programmation
 - **Google Fonts** : Typographie personnalisée (Barlow)
-- **Font Awesome Flutter** : Bibliothèque d'icônes
+- **Font Awesome Flutter** : Bibliothèque d'icônes vectorielles
 - **URL Launcher** : Ouverture de liens externes
-- **Share Plus** : Partage de contenu
-- **Flutter Native Splash** : Gestion du splash screen
+- **Share Plus** : Partage de contenu sur les réseaux sociaux
+- **Flutter Native Splash** : Gestion professionnelle du splash screen
+- **Flutter InAppWebView** : Lecteur vidéo intégré pour les bandes-annonces
+- **Path Provider** : Gestion du stockage local des favoris
 
 ## 📦 Dépendances
 
@@ -54,7 +92,31 @@ dependencies:
   font_awesome_flutter: ^10.12.0
   google_fonts: ^7.0.2
   flutter_native_splash: ^2.4.7
+  flutter_inappwebview: ^6.0.0
+  path_provider: ^2.1.1
 ```
+
+## 🎯 Architecture et Patterns
+
+### Services
+- **MovieService** : Gestion du chargement des films depuis JSON
+- **FavoriteService** : Gestion des favoris avec persistance locale
+
+### Models
+- **Movie** : Modèle de données pour les films (titre, année, poster, description, vidéo)
+- **Question & Answer** : Modèles pour le système de quiz
+- **QuizQuestion & QuizOption** : Modèles pour le quiz de genres
+
+### Pages
+- **FilmPage** : Page principale avec la liste des films
+- **FavoritePage** : Page dédiée aux films favoris
+- **GenreQuizPage** : Quiz interactif pour déterminer les préférences
+- **QuizResultsPage** : Affichage des résultats et recommandations
+- **ProfilPage** : Page de profil utilisateur
+
+### Composants réutilisables
+- **VideoPlayerDialog** : Dialog modal pour la lecture des bandes-annonces
+- **question_text** : Widget personnalisé pour l'affichage des questions
 
 ## 🚀 Installation et utilisation
 
@@ -90,23 +152,54 @@ dependencies:
 
 ```
 lib/
-├── main.dart              # Point d'entrée de l'application
-├── quizz.dart            # Page du quiz
-├── profil.dart           # Page portfolio
-├── models.dart           # Modèles de données (Question, Answer)
-└── composant/
-    └── question_text.dart # Widget texte de question
+├── main.dart                    # Point d'entrée de l'application
+├── FilmPage.dart               # Page principale avec la liste des films
+├── FavoritePage.dart           # Page des films favoris
+├── profil.dart                 # Page de profil utilisateur
+├── quizz.dart                  # Quiz personnel (legacy)
+├── genre_quiz_page.dart        # Quiz de recommandation de genres
+├── quiz_results_page.dart      # Page de résultats du quiz
+├── models.dart                 # Modèles de base (Question, Answer)
+├── composant/
+│   ├── question_text.dart      # Widget texte de question
+│   └── video_player_dialog.dart # Dialog de lecture vidéo
+└── services/
+    ├── film_service.dart       # Service de gestion des films
+    └── favorite_service.dart   # Service de gestion des favoris
+
+assets/
+├── data/
+│   └── filmdata.json          # Base de données des films
+└── images/
+    ├── logo.png               # Logo standard
+    ├── logo-blanc.png         # Logo splash screen
+    ├── background.png         # Image de fond profil
+    ├── profil.png            # Photo de profil
+    └── qrcode.png            # QR Code
 ```
 
-## 🎨 Design
+## 🎨 Design et UX
 
-- **Thème sombre** : Fond gris foncé (#232323)
-- **Dégradés bleus** : Boutons avec gradient (bleu foncé vers bleu clair)
-- **Feedback visuel** : 
-  - Bordure blanche sur la réponse sélectionnée
-  - Gradient inversé pour la réponse sélectionnée
-  - Bouton "Suivant" grisé quand désactivé
-- **Ombres portées** : Effet de profondeur sur les cartes et boutons
+### Palette de couleurs
+- **Fond principal** : `#232323` (Gris très foncé)
+- **Fond secondaire** : `#141620` (Bleu-noir pour l'AppBar)
+- **Gradient principal** : `#1A2482` → `#3B89C0` (Bleu foncé vers bleu clair)
+- **Accent** : `#FF0000` (Rouge pour les favoris)
+- **Texte** : `#FFFFFF` (Blanc) et variations de gris
+
+### Composants UI
+- **Cards avec gradients** : Effet de profondeur avec dégradés bleus
+- **Badges interactifs** : Compteurs de favoris avec animations
+- **Boutons stylisés** : Bordures colorées et feedback visuel au clic
+- **Icons contextuelles** : Font Awesome et Material Icons
+- **Transitions fluides** : Navigation avec animations natives
+
+### Expérience utilisateur
+- **Feedback immédiat** : Changements visuels instantanés (favoris, sélections)
+- **Navigation intuitive** : Boutons clairs et accessibles
+- **Gestes naturels** : Appui long pour les bandes-annonces
+- **Messages informatifs** : SnackBars et dialogs pour guider l'utilisateur
+- **Responsive** : Adaptation à toutes les tailles d'écran
 
 ## 📝 Fonctionnement du Quiz
 
