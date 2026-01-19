@@ -1,0 +1,107 @@
+[
+  {
+    "title": "Inception",
+    "year": 2010,
+    "poster": "https://image.tmdb.org/t/p/w500/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg",
+    "description": "Un voleur qui s'infiltre dans les rêves des gens pour voler leurs secrets se voit confier une mission impossible : implanter une idée dans l'esprit d'un PDG.",
+    "video": "https://www.youtube.com/watch?v=YoHD9XEInc0"
+  },
+  {
+    "title": "Interstellar",
+    "year": 2014,
+    "poster": "https://image.tmdb.org/t/p/w500/1pnigkWWy8W032o9TKDneBa3eVK.jpg",
+    "description": "Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace pour assurer la survie de l'humanité face à la fin de la Terre.",
+    "video": "https://www.youtube.com/watch?v=zSWdZVtXT7E"
+  },
+  {
+    "title": "The Dark Knight",
+    "year": 2008,
+    "poster": "https://image.tmdb.org/t/p/w500/pyNXnq8QBWoK3b37RS6C3axwUOy.jpg",
+    "description": "Batman affronte le Joker, un criminel chaotique qui plonge Gotham dans l'anarchie et force le chevalier noir à affronter ses propres limites morales.",
+    "video": "https://www.youtube.com/watch?v=EXeTwQWrcwY"
+  },
+  {
+    "title": "The Matrix",
+    "year": 1999,
+    "poster": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "description": "Un hacker découvre que la réalité dans laquelle il vit est une simulation créée par des machines pour asservir l'humanité.",
+    "video": "https://www.youtube.com/watch?v=vKQi3bBA1y8"
+  },
+  {
+    "title": "Pulp Fiction",
+    "year": 1994,
+    "poster": "https://image.tmdb.org/t/p/w500/fIE3lAGcZDV1G6XM5KmuWnNsPp1.jpg",
+    "description": "Les histoires entrelacées de gangsters, d'un boxeur et de deux petits bandits dans le Los Angeles criminel.",
+    "video": "https://www.youtube.com/watch?v=s7EdQ4FqbhY"
+  },
+  {
+    "title": "Forrest Gump",
+    "year": 1994,
+    "poster": "https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
+    "description": "L'histoire extraordinaire d'un homme simple qui traverse plusieurs décennies d'histoire américaine en influençant les événements majeurs.",
+    "video": "https://www.youtube.com/watch?v=bLvqoHBptjg"
+  },
+  {
+    "title": "The Shawshank Redemption",
+    "year": 1994,
+    "poster": "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+    "description": "Un banquier condamné à perpétuité pour un crime qu'il n'a pas commis développe une amitié avec un autre détenu et trouve l'espoir dans les pires circonstances.",
+    "video": "https://www.youtube.com/watch?v=6hB3S9bIaco"
+  },
+  {
+    "title": "Gladiator",
+    "year": 2000,
+    "poster": "https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+    "description": "Un général romain trahi devient gladiateur et cherche à venger sa famille et l'empereur assassiné.",
+    "video": "https://www.youtube.com/watch?v=owK1qxDselE"
+  },
+  {
+    "title": "Avatar",
+    "year": 2009,
+    "poster": "https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg",
+    "description": "Un marine paraplégique est envoyé sur la lune Pandora pour une mission unique qui le place face à un choix difficile entre suivre ses ordres et protéger le monde qu'il considère désormais comme sa maison.",
+    "video": "https://www.youtube.com/watch?v=5PSNL1qE6VY"
+  },
+  {
+    "title": "Titanic",
+    "year": 1997,
+    "poster": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+    "description": "Une histoire d'amour impossible entre un artiste pauvre et une jeune aristocrate à bord du Titanic lors de son voyage inaugural tragique.",
+    "video": "https://www.youtube.com/watch?v=kVrqfYjkTdQ"
+  },
+  {
+    "title": "The Avengers",
+    "year": 2012,
+    "poster": "https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
+    "description": "Les plus grands héros de la Terre s'unissent pour former les Avengers afin de combattre une menace extraterrestre qui pourrait détruire l'humanité.",
+    "video": "https://www.youtube.com/watch?v=eOrNdBpGMv8"
+  },
+  {
+    "title": "Jurassic Park",
+    "year": 1993,
+    "poster": "https://image.tmdb.org/t/p/w500/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg",
+    "description": "Un parc d'attractions peuplé de dinosaures clonés devient un cauchemar lorsque les créatures s'échappent.",
+    "video": "https://www.youtube.com/watch?v=lc0UehYemQA"
+  },
+  {
+    "title": "The Lord of the Rings",
+    "year": 2001,
+    "poster": "https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "description": "Un jeune hobbit hérite d'un anneau magique et doit entreprendre un périlleux voyage pour le détruire avant qu'il ne tombe entre de mauvaises mains.",
+    "video": "https://www.youtube.com/watch?v=V75dMMIW2B4"
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "year": 2021,
+    "poster": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "description": "Peter Parker demande l'aide du Dr Strange pour restaurer son identité secrète, mais un sort qui tourne mal ouvre le multivers.",
+    "video": "https://www.youtube.com/watch?v=JfVOs4VSpmA"
+  },
+  {
+    "title": "Oppenheimer",
+    "year": 2023,
+    "poster": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+    "description": "L'histoire de J. Robert Oppenheimer et son rôle dans le développement de la bombe atomique pendant la Seconde Guerre mondiale.",
+    "video": "https://www.youtube.com/watch?v=uYPbbksJxIg"
+  }
+]

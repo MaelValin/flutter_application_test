@@ -3,10 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
-
-
-
 class PortfolioPage extends StatelessWidget {
   const PortfolioPage({super.key});
 
