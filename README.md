@@ -1,46 +1,93 @@
-# TP2 - Application Quiz Flutter
+# 🐺 Loup-Garou - Application Maître du Jeu
 
 ## 📱 Description du projet
 
-Application mobile développée dans le cadre du **TP2 - Création d'un Quiz** pour le cours de développement d'applications mobiles (S6). Cette application Flutter propose un quiz interactif avec un système de questions-réponses et un calcul de score.
+Application mobile complète développée pour faciliter le rôle du Maître du Jeu lors de parties de Loup-Garou. Cette application Flutter permet de gérer les joueurs, leurs rôles, l'ordre de jeu, les effets et de suivre l'évolution de la partie en temps réel.
 
 ## 👨‍🎓 Informations
 
 - **Étudiant** : Mael Valin
 - **Semestre** : S6
 - **Cours** : Développement d'applications mobiles
-- **Travail** : TP2 - Création d'un Quizz
+- **Projet** : Application Loup-Garou pour Maître du Jeu
 
-## ✨ Fonctionnalités
+## ✨ Fonctionnalités principales
 
-### Quiz Interactif
-- **Questions à choix multiples** : Questions sur des informations personnelles
-- **Système de sélection** : Sélection visuelle d'une réponse avant validation
-- **Bouton "Suivant"** : Débloqué uniquement après avoir sélectionné une réponse
-- **Compteur de progression** : Affichage du nombre de questions (ex: "Questions : 1 / 4")
-- **Calcul du score** : Score final affiché à la fin du quiz
-- **Messages personnalisés** : Feedback adapté selon le score obtenu
+### 🏠 Page d'accueil
+- **Design immersif** : Interface avec fond bleu et accents dorés
+- **Nouvelle partie** : Bouton pour démarrer une nouvelle configuration
+- **Continuer** : Reprise d'une partie en cours (sauvegarde automatique)
+- **Logo animé** : Présentation professionnelle avec bordure dorée
 
-### Page Portfolio
-- **En-tête avec profil** : Photo de profil et image de fond
-- **Carte d'informations** : Nom, date de naissance, ville, profession
-- **Carte QR Code** : Lien vers YouTube
-- **Icônes technologies** : Affichage des technologies maîtrisées
+### ⚙️ Configuration de la partie
+- **Ajout de joueurs** : Formulaire simple avec nom et rôle
+- **8 rôles disponibles** :
+  - 🐺 Loup-Garou
+  - 🔮 Voyante
+  - 🧪 Sorcière
+  - 🎯 Chasseur
+  - 💘 Cupidon
+  - 👧 Petite Fille
+  - 🎭 Voleur
+  - 👤 Villageois
+- **Liste visuelle** : Affichage des joueurs avec leurs rôles
+- **Validation** : Vérifications (minimum 4 joueurs, au moins 1 loup)
+- **Suppression** : Possibilité de retirer un joueur
 
-### Splash Screen
-- **Splash screen personnalisé** : Logo blanc sur fond sombre (#232323)
-- **Support Android 12+** : Configuration spécifique pour les nouvelles versions d'Android
-- **Mode plein écran** : Masquage de la barre de notification
+### 🎮 Page de jeu principale
+- **Ordre de la nuit** : Affichage automatique de l'ordre de jeu des rôles
+- **Phases de jeu** :
+  - 🌙 Nuit : Tour des rôles spéciaux
+  - ☀️ Jour : Discussion entre joueurs
+  - 🗳️ Vote : Élimination d'un joueur
+- **Gestion des joueurs** :
+  - Carte expandable pour chaque joueur
+  - Rôle visible en un coup d'œil
+  - Statut vivant/mort
+  - Badge amoureux (💕) si Cupidon actif
+- **Actions disponibles** :
+  - ➕ Ajouter un effet (protection, poison, vision, etc.)
+  - ⚠️ Éliminer un joueur
+  - 📝 Enregistrer des actions
+- **Effets visuels** :
+  - 🛡️ Protection (vert)
+  - ☠️ Poison (rouge)
+  - 👁️ Vision (violet)
+  - 💕 Charme (rose)
+  - 🎯 Cible (orange)
+- **Système d'amoureux** : Gestion automatique (si l'un meurt, l'autre aussi)
+
+### 🏆 Fin de partie
+- **Détection automatique** : Victoire des loups ou des villageois
+- **Écran de victoire** : Affichage du gagnant avec statistiques
+- **Retour à l'accueil** : Nouvelle partie possible
+
+### 💾 Persistance des données
+- **Sauvegarde automatique** : L'état de la partie est sauvegardé en permanence
+- **Reprise de partie** : Possibilité de fermer l'app et de reprendre plus tard
+- **Historique des actions** : Toutes les actions sont enregistrées
+
+## 🎨 Design et thème
+
+### Palette de couleurs
+- **Fond principal** : Dégradé bleu (`#1A237E` → `#283593`)
+- **Accent doré** : `#FFD700` pour tous les boutons et bordures
+- **Cartes** : `#283593` avec bordure dorée
+- **Texte** : Blanc avec variations d'opacité
+
+### Composants UI
+- **Boutons dorés** : Style uniforme avec ombre portée
+- **Cartes joueurs** : Effet de profondeur avec expansion
+- **Badges animés** : Icônes émojis pour les rôles
+- **Dialogs modaux** : Confirmation des actions importantes
+- **Transitions fluides** : Navigation avec animations natives
 
 ## 🛠️ Technologies utilisées
 
-- **Flutter** : Framework de développement
+- **Flutter** : Framework cross-platform (version 3.10.7+)
 - **Dart** : Langage de programmation
-- **Google Fonts** : Typographie personnalisée (Barlow)
-- **Font Awesome Flutter** : Bibliothèque d'icônes
-- **URL Launcher** : Ouverture de liens externes
-- **Share Plus** : Partage de contenu
-- **Flutter Native Splash** : Gestion du splash screen
+- **Provider** : Gestion d'état réactive (^6.1.1)
+- **SharedPreferences** : Persistance locale des données (^2.2.2)
 
 ## 📦 Dépendances
 
@@ -49,11 +96,44 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  url_launcher: ^6.3.2
-  share_plus: ^12.0.1
-  font_awesome_flutter: ^10.12.0
-  google_fonts: ^7.0.2
-  flutter_native_splash: ^2.4.7
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
+```
+
+## 🎯 Architecture et Patterns
+
+### Models (`loup_garou_models.dart`)
+- **Joueur** : Représente un joueur avec son nom, rôle, état et effets
+- **Role** : Énumération des 8 rôles avec emoji, description et ordre de jeu
+- **Effet** : Système d'effets applicables aux joueurs
+- **TourDeJeu** : Représente un tour avec ses actions
+- **Phase** : Énumération des phases (Préparation, Nuit, Jour, Vote, Terminé)
+- **ActionJeu** : Enregistrement de chaque action pendant la partie
+
+### Service (`partie_service.dart`)
+- **PartieService** : Service principal avec ChangeNotifier
+  - Gestion des joueurs (ajout, modification, suppression)
+  - Gestion des tours et phases
+  - Système d'élimination avec gestion des amoureux
+  - Effets et actions
+  - Sauvegarde/chargement automatique
+  - Détection de fin de partie
+
+### Pages
+- **AccueilPage** : Page d'accueil avec logo et boutons
+- **ConfigurationPage** : Configuration de la partie et ajout des joueurs
+- **JeuPage** : Page principale du jeu avec gestion en temps réel
+
+## 📂 Structure du projet
+
+```
+lib/
+├── main.dart                    # Point d'entrée avec Provider
+├── loup_garou_models.dart       # Tous les modèles de données
+├── partie_service.dart          # Service de gestion de partie
+├── accueil_page.dart           # Page d'accueil
+├── configuration_page.dart      # Configuration des joueurs
+└── jeu_page.dart               # Page de jeu principale
 ```
 
 ## 🚀 Installation et utilisation
@@ -76,91 +156,175 @@ dependencies:
    flutter pub get
    ```
 
-3. **Générer le splash screen**
-   ```bash
-   dart run flutter_native_splash:create
-   ```
-
-4. **Lancer l'application**
+3. **Lancer l'application**
    ```bash
    flutter run
    ```
 
-## 📂 Structure du projet
+## 🎮 Guide d'utilisation
 
-```
-lib/
-├── main.dart              # Point d'entrée de l'application
-├── quizz.dart            # Page du quiz
-├── profil.dart           # Page portfolio
-├── models.dart           # Modèles de données (Question, Answer)
-└── composant/
-    └── question_text.dart # Widget texte de question
-```
+### Démarrer une partie
 
-## 🎨 Design
+1. **Page d'accueil** : Cliquez sur "NOUVELLE PARTIE"
+2. **Configuration** :
+   - Ajoutez les joueurs un par un
+   - Sélectionnez leur rôle dans le menu déroulant
+   - Minimum 4 joueurs et au moins 1 Loup-Garou requis
+3. **Démarrer** : Cliquez sur "DÉMARRER LA PARTIE"
 
-- **Thème sombre** : Fond gris foncé (#232323)
-- **Dégradés bleus** : Boutons avec gradient (bleu foncé vers bleu clair)
-- **Feedback visuel** : 
-  - Bordure blanche sur la réponse sélectionnée
-  - Gradient inversé pour la réponse sélectionnée
-  - Bouton "Suivant" grisé quand désactivé
-- **Ombres portées** : Effet de profondeur sur les cartes et boutons
+### Pendant le jeu
 
-## 📝 Fonctionnement du Quiz
+#### Phase Nuit
+1. Consultez l'ordre de la nuit en haut de l'écran
+2. Réveillez les rôles dans l'ordre indiqué
+3. Pour chaque action :
+   - Cliquez sur le joueur concerné
+   - Ajoutez un effet si nécessaire
+   - Enregistrez l'action
 
-1. L'utilisateur lit la question affichée
-2. Il sélectionne une réponse parmi les choix proposés
-3. La réponse sélectionnée est mise en surbrillance
-4. Le bouton "Suivant" se débloque
-5. L'utilisateur clique sur "Suivant" pour valider
-6. Le score est mis à jour si la réponse est correcte
-7. La question suivante s'affiche
-8. À la fin, l'écran de résultat affiche le score avec un message personnalisé
-9. Possibilité de recommencer le quiz
+#### Phase Jour
+1. Laissez les joueurs discuter
+2. Notez les informations importantes
+3. Passez au vote
+
+#### Phase Vote
+1. Éliminez le joueur désigné par le vote
+2. Cliquez sur "Éliminer" dans sa carte
+3. Passez à la nuit suivante
+
+### Fonctionnalités avancées
+
+- **Système Cupidon** : Définissez deux amoureux (si l'un meurt, l'autre aussi)
+- **Effets** : Appliquez protection, poison, vision, etc.
+- **Historique** : Toutes les actions sont sauvegardées
+- **Pause** : Fermez l'app, la partie est sauvegardée automatiquement
 
 ## 🎯 Points techniques importants
 
-- **État local** : Utilisation de `StatefulWidget` pour gérer l'état du quiz
-- **Listes dynamiques** : Génération dynamique des boutons de réponses
-- **Conditions d'affichage** : Bouton "Suivant" activé conditionnellement
-- **Réinitialisation** : Reset du quiz après complétion
+### Gestion d'état
+- **Provider** : Pattern Observer pour la réactivité
+- **ChangeNotifier** : Notifications automatiques des changements
+- **Context.watch** : Reconstruction automatique des widgets
 
-## 📸 Assets
+### Persistance
+- **SharedPreferences** : Stockage local JSON
+- **Auto-save** : Sauvegarde à chaque action
+- **Sérialisation** : toJson/fromJson pour tous les modèles
 
-```
-assets/
-└── images/
-    ├── logo.png           # Logo pour splash screen (standard)
-    ├── logo-blanc.png     # Logo pour splash screen (Android 12+)
-    ├── background.png     # Image de fond du profil
-    ├── profil.png         # Photo de profil
-    └── qrcode.png         # QR Code YouTube
-```
-
-## 🔧 Configuration
-
-### Splash Screen
-Le splash screen est configuré dans `pubspec.yaml` avec :
-- Couleur de fond : #232323
-- Image : logo blanc
-- Mode plein écran activé
-- Support Android 12+ avec configuration spécifique
+### Logique métier
+- **Ordre automatique** : Calcul de l'ordre de nuit basé sur les rôles vivants
+- **Détection de victoire** : Vérification automatique après chaque élimination
+- **Gestion des amoureux** : Élimination en cascade
 
 ## 📱 Plateformes supportées
 
-- ✅ Android
-- ✅ iOS
-- ✅ Web
-- ✅ Windows
-- ✅ Linux
-- ✅ macOS
+- ✅ **Android** : Testé sur Android 8.0+
+- ✅ **iOS** : Compatible iOS 12.0+
+- ✅ **Web** : Fonctionnel
+- ✅ **Desktop** : Windows, macOS, Linux
+
+## 🎲 Règles du jeu Loup-Garou
+
+### Objectifs
+- **Villageois** : Éliminer tous les Loups-Garous
+- **Loups-Garous** : Égaler ou dépasser le nombre de villageois
+
+### Rôles détaillés
+
+**🐺 Loup-Garou** (Ordre 1)
+- Se réveille la nuit avec les autres loups
+- Choisit une victime à éliminer
+
+**🔮 Voyante** (Ordre 2)
+- Peut voir le rôle d'un joueur chaque nuit
+
+**🧪 Sorcière** (Ordre 3)
+- Potion de vie : Ressuscite la victime des loups (1 fois)
+- Potion de mort : Élimine un joueur (1 fois)
+
+**🎯 Chasseur** (Ordre 4)
+- Quand il meurt, peut éliminer un autre joueur
+
+**💘 Cupidon** (Ordre 5)
+- Premier tour uniquement : Désigne deux amoureux
+- Si l'un meurt, l'autre meurt de chagrin
+
+**👧 Petite Fille** (Ordre 6)
+- Peut espionner les loups-garous (avec risque)
+
+**🎭 Voleur** (Ordre 7)
+- Premier tour : Peut échanger son rôle avec une carte non distribuée
+
+**👤 Villageois** (Ordre 100)
+- Aucun pouvoir spécial
+- Participe aux votes
+
+## 🏆 Points forts du projet
+
+### Techniques
+- ✅ Architecture propre avec séparation des responsabilités
+- ✅ Gestion d'état moderne avec Provider
+- ✅ Persistance automatique des données
+- ✅ Code bien structuré et commenté
+- ✅ Modèles de données complets avec sérialisation
+
+### Design
+- ✅ Thème cohérent bleu et or
+- ✅ Interface intuitive et professionnelle
+- ✅ Animations et feedback visuels
+- ✅ Composants réutilisables
+
+### Fonctionnalités
+- ✅ Gestion complète du jeu
+- ✅ Système d'effets flexible
+- ✅ Détection automatique de fin
+- ✅ Sauvegarde automatique
+- ✅ Support de tous les rôles classiques
+
+## 💡 Améliorations futures
+
+- [ ] Mode multijoueur avec synchronisation
+- [ ] Ajout de rôles supplémentaires (Ancien, Idiot, etc.)
+- [ ] Statistiques de parties
+- [ ] Mode tutoriel interactif
+- [ ] Sons et musiques d'ambiance
+- [ ] Thèmes personnalisables
+- [ ] Export de l'historique de partie
+
+## 🐛 Dépannage
+
+### Les données ne se sauvegardent pas
+- Vérifiez que SharedPreferences est bien installé
+- Sur iOS, les permissions peuvent être requises
+
+### Erreur de build
+```bash
+flutter clean
+flutter pub get
+flutter run
+```
+
+## 📚 Apprentissages clés
+
+- **Flutter avancé** : Provider, state management
+- **Architecture** : Séparation models/services/views
+- **Persistance** : SharedPreferences, JSON
+- **UX/UI** : Design cohérent, feedback utilisateur
+- **Logique métier** : Règles de jeu complexes
+
+## 👥 Crédits
+
+- **Développeur** : Mael Valin
+- **Cours** : S6 - Développement mobile
+- **Inspiration** : Jeu de société Loup-Garou de Thiercelieux
 
 ## 📄 Licence
 
-Ce projet est un travail académique réalisé dans le cadre d'un cours universitaire.
+Projet académique - S6 2026
 
 ---
 
+**Développé avec** ❤️ **et Flutter**
+
+**Version** : 1.0.0  
 **Dernière mise à jour** : Janvier 2026
