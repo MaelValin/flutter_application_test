@@ -44,3 +44,5 @@ flutter run
 Si tu veux une version plus détaillée (captures d'écran, instructions pour commits, livrable), dis-le et je complète.
 
 
+![Profil](screen app/profilpage.png)
+
