@@ -7,6 +7,8 @@ import 'quizz.dart';
 import 'FilmPage.dart';
 import 'services/film_service.dart';
 import 'services/favorite_service.dart';
+import 'services/movie_service.dart' as movie_service;
+import 'pages/movie_list_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Instance globale du service MovieService
+    final movieService = movie_service.MovieService();
     final favoriteService = FavoriteService();
     
     return MaterialApp(
@@ -26,12 +30,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       // home: const PortfolioPage(),
       // home: const QuizPage(),
-      home: FilmPage(
-        movieService: MovieService(), 
-        favoriteService: favoriteService,
-      ),
+      // Ancienne page (peut être commentée si vous voulez garder)
+      // home: FilmPage(
+      //   movieService: MovieService(), 
+      //   favoriteService: favoriteService,
+      // ),
       
-
+      // Nouvelle page avec API Watchmode
+      home: MovieListPage(movieService: movieService),
     );
   }
 }

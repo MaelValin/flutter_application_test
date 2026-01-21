@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'services/film_service.dart';
+import 'models/movie.dart';
 
 class GenreQuizPage extends StatefulWidget {
-  final List<Movie> allMovies;
+  final List<MovieListItem> allMovies;
 
   const GenreQuizPage({super.key, required this.allMovies});
 
@@ -153,7 +153,7 @@ class _GenreQuizPageState extends State<GenreQuizPage> {
     List<String> topGenres = sortedGenres.take(3).map((e) => e.key).toList();
 
     // Filtrer les films correspondants
-    List<Movie> recommendedMovies = _getMoviesForGenres(topGenres);
+    List<MovieListItem> recommendedMovies = _getMoviesForGenres(topGenres);
 
     Navigator.pop(context, {
       'genres': topGenres,
@@ -162,7 +162,7 @@ class _GenreQuizPageState extends State<GenreQuizPage> {
     });
   }
 
-  List<Movie> _getMoviesForGenres(List<String> genres) {
+  List<MovieListItem> _getMoviesForGenres(List<String> genres) {
     // Mapping des films aux genres (basé sur les films de filmdata.json)
     Map<String, List<String>> movieGenres = {
       'Inception': ['Science-Fiction', 'Thriller', 'Action'],
@@ -183,7 +183,7 @@ class _GenreQuizPageState extends State<GenreQuizPage> {
     };
 
     // Calculer le score de correspondance pour chaque film
-    Map<Movie, int> movieScores = {};
+    Map<MovieListItem, int> movieScores = {};
     for (var movie in widget.allMovies) {
       int score = 0;
       List<String> filmGenres = movieGenres[movie.title] ?? [];

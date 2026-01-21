@@ -7,6 +7,7 @@ import 'FavoritePage.dart';
 import 'composant/video_player_dialog.dart';
 import 'genre_quiz_page.dart';
 import 'quiz_results_page.dart';
+import 'models/movie.dart' hide Movie;
 
 class FilmPage extends StatefulWidget {
   final MovieService movieService;
@@ -46,10 +47,21 @@ class _FilmPageState extends State<FilmPage> {
           IconButton(
             icon: const Icon(Icons.help_outline, color: Colors.white, size: 28),
             onPressed: () async {
+              // Convertir les Movie en MovieListItem pour le quiz
+              final movieListItems = movies.asMap().entries.map((entry) {
+                return MovieListItem(
+                  id: entry.key, // Utiliser l'index comme id
+                  title: entry.value.title,
+                  year: entry.value.year,
+                  posterUrl: entry.value.poster,
+                );
+              }).toList();
+
               final result = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => GenreQuizPage(allMovies: movies),
+                  builder: (context) =>
+                      GenreQuizPage(allMovies: movieListItems),
                 ),
               );
 

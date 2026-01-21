@@ -1,84 +1,63 @@
-# 🎬 Application Films & Quiz - Flutter
+# 🎬 TP3 - Application Visualisation de Films
 
 ## 📱 Description du projet
 
-Application mobile complète développée dans le cadre du cours de développement d'applications mobiles (S6). Cette application Flutter combine une bibliothèque de films interactive avec un système de recommandation basé sur un quiz de préférences personnalisé.
+Application mobile développée dans le cadre du **TP3 - Application Visualisation de Films** pour le cours de développement d'applications mobiles (S6). Cette application Flutter permet de parcourir des films récents via l'API Watchmode, consulter leurs détails complets, gérer une liste de favoris et visionner les bandes-annonces.
 
 ## 👨‍🎓 Informations
 
 - **Étudiant** : Mael Valin
 - **Semestre** : S6
 - **Cours** : Développement d'applications mobiles
-- **Travail** : Application de gestion de films avec système de recommandation
+- **Travail** : TP3 - Application de gestion de films avec API
 
 ## ✨ Fonctionnalités principales
 
-### 🎬 Page Films (Page principale)
-- **Catalogue de films** : Liste de 15 films avec affiches, années et descriptions
-- **Design moderne** : Cards avec dégradés bleus et mise en page élégante
+### 🎬 Liste des Films (Page principale)
+- **Chargement API** : Récupération de films récents depuis l'API Watchmode avec Dio
+- **Gestion des états** : Affichage clair des états de chargement, erreur et succès
+- **Première lettre colorée** : Avatar avec la première lettre du titre et couleur générée automatiquement
 - **Système de favoris** : 
   - Ajout/retrait de films en favoris d'un simple clic
   - Badge avec compteur de favoris dans l'AppBar
   - Icône cœur qui change de couleur selon l'état
-- **Lecteur vidéo intégré** : 
-  - Appui long sur un film pour voir sa bande-annonce
-  - Lecteur WebView intégré pour YouTube
-  - Dialog modal avec contrôles de lecture
-- **Navigation fluide** : Accès rapide aux favoris et au quiz
+- **Gestion des erreurs** : 
+  - Messages d'erreur clairs et explicites
+  - Bouton "Réessayer" pour relancer les appels API
+  - Validation de la clé API au démarrage
+- **Navigation fluide** : Accès rapide aux détails et aux favoris
 
-### 🎯 Quiz de Recommandation de Genre
-- **Quiz intelligent** : 5 questions pour déterminer les préférences de genre
-- **8 genres analysés** : 
-  - Action
-  - Science-Fiction
-  - Drame
-  - Aventure
-  - Romance
-  - Thriller
-  - Animation
-  - Comédie
-- **Système de points** : Algorithme de scoring sophistiqué pour chaque réponse
-- **Barre de progression** : Suivi visuel de l'avancement du quiz
-- **Interface intuitive** : Boutons stylisés avec feedback visuel
-
-### 🏆 Page de Résultats du Quiz
-- **Top 3 des genres** : Affichage des genres préférés avec scores
-- **Recommandations personnalisées** : 3 films suggérés selon les préférences
-- **Podium visuel** : Badges or, argent, bronze pour le classement
-- **Détails des films** : Affiches, descriptions et années
-- **Actions disponibles** :
-  - Visualisation des bandes-annonces (appui long)
-  - Possibilité de refaire le quiz
-- **Design attractif** : Gradient matching avec le thème de l'app
+### 📄 Page Détails d'un Film
+- **Chargement dynamique** : Second appel API pour récupérer toutes les informations complètes
+- **Affichage riche** : 
+  - Poster haute résolution (ou placeholder si indisponible)
+  - Titre et année de sortie
+  - Note utilisateur (user_rating) avec icône étoile
+  - Liste des genres sous forme de chips
+  - Synopsis complet (plot_overview)
+- **Bande-annonce YouTube** : 
+  - Bouton pour ouvrir la bande-annonce si disponible
+  - Lancement via `url_launcher` dans l'application YouTube
+  - Gestion des erreurs si le lien est invalide
+- **Gestion des états** : Loading, erreur et succès avec messages clairs
 
 ### ❤️ Page Favoris
 - **Collection personnelle** : Tous les films marqués comme favoris
 - **Gestion facilitée** : Retrait rapide des favoris
-- **Interface cohérente** : Même design que la page principale
-- **État synchronisé** : Mise à jour en temps réel
-
-### 👤 Page Profil
-- **En-tête personnalisé** : Photo de profil et image de fond
-- **Informations personnelles** : Nom, date de naissance, ville, profession
-- **QR Code** : Lien vers contenu externe
-- **Technologies** : Affichage des compétences techniques
-
-### 🎨 Splash Screen
-- **Splash screen professionnel** : Logo sur fond sombre (#232323)
-- **Support Android 12+** : Configuration adaptée aux nouvelles versions
-- **Mode plein écran** : Expérience immersive au démarrage
+- **Navigation vers détails** : Accès aux détails complets depuis les favoris
+- **État synchronisé** : Mise à jour en temps réel entre les pages
 
 ## 🛠️ Technologies utilisées
 
 - **Flutter** : Framework de développement cross-platform
 - **Dart** : Langage de programmation
+- **Dio** : Client HTTP performant pour les appels API REST
+- **Watchmode API** : API de films pour récupérer les données (liste et détails)
 - **Google Fonts** : Typographie personnalisée (Barlow)
 - **Font Awesome Flutter** : Bibliothèque d'icônes vectorielles
-- **URL Launcher** : Ouverture de liens externes
-- **Share Plus** : Partage de contenu sur les réseaux sociaux
-- **Flutter Native Splash** : Gestion professionnelle du splash screen
-- **Flutter InAppWebView** : Lecteur vidéo intégré pour les bandes-annonces
-- **Path Provider** : Gestion du stockage local des favoris
+- **URL Launcher** : Ouverture des bandes-annonces YouTube dans l'app externe
+- **YouTube Player Flutter** : Lecteur vidéo intégré pour les bandes-annonces
+- **Flutter Native Splash** : Gestion du splash screen
 
 ## 📦 Dépendances
 
@@ -87,36 +66,124 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  url_launcher: ^6.3.2
-  share_plus: ^12.0.1
-  font_awesome_flutter: ^10.12.0
-  google_fonts: ^7.0.2
-  flutter_native_splash: ^2.4.7
-  flutter_inappwebview: ^6.0.0
-  path_provider: ^2.1.1
+  dio: ^5.4.0                          # Client HTTP pour API
+  url_launcher: ^6.3.2                 # Ouverture liens externes
+  share_plus: ^12.0.1                  # Partage de contenu
+  font_awesome_flutter: ^10.12.0       # Icônes
+  google_fonts: ^7.0.2                 # Fonts personnalisées
+  flutter_native_splash: ^2.4.7        # Splash screen
+  youtube_player_flutter: ^9.0.3       # Lecteur YouTube
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
 ```
+
+## 🔑 Configuration de la clé API Watchmode
+
+### Obtenir une clé API
+1. Inscris-toi sur [Watchmode API](https://api.watchmode.com/)
+2. Récupère ta clé API gratuite (100 requêtes/jour)
+
+### Utiliser la clé API
+
+#### En ligne de commande
+```bash
+flutter run --dart-define=WATCHMODE_API_KEY=ta_clé_api_ici
+```
+
+#### Dans VS Code
+Crée un fichier `.vscode/launch.json` à la racine du projet :
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter (Development)",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define=WATCHMODE_API_KEY=ta_clé_api_ici"
+      ]
+    }
+  ]
+}
+```
+
+#### Dans Android Studio
+- Va dans **Run** → **Edit Configurations**
+- Dans **Additional run args**, ajoute : `--dart-define=WATCHMODE_API_KEY=ta_clé_api_ici`
+
+⚠️ **Important** : Ne jamais hardcoder la clé API dans le code source ! Utilise toujours `--dart-define` pour la sécurité.
 
 ## 🎯 Architecture et Patterns
 
-### Services
-- **MovieService** : Gestion du chargement des films depuis JSON
-- **FavoriteService** : Gestion des favoris avec persistance locale
+### Modèles de données
 
-### Models
-- **Movie** : Modèle de données pour les films (titre, année, poster, description, vidéo)
-- **Question & Answer** : Modèles pour le système de quiz
-- **QuizQuestion & QuizOption** : Modèles pour le quiz de genres
+#### `MovieListItem` (liste légère)
+```dart
+class MovieListItem {
+  final int id;
+  final String title;
+  final int year;
+}
+```
+Utilisé pour la liste principale. Contient uniquement les informations essentielles retournées par l'endpoint `/list-titles/`.
+
+#### `Movie` (détails complets)
+```dart
+class Movie {
+  final int id;
+  final String title;
+  final String plotOverview;
+  final int year;
+  final String? poster;
+  final String? backdrop;
+  final double userRating;
+  final List<String> genreNames;
+  final String? trailer;
+}
+```
+Utilisé pour la page de détails. Contient toutes les informations complètes retournées par l'endpoint `/title/{id}/details/`.
+
+### Services
+
+#### `MovieService`
+Gère tous les appels API vers Watchmode avec Dio :
+- `getMovies({int limit})` : Récupère la liste des films récents
+- `getMovieDetails(int movieId)` : Récupère les détails complets d'un film
+- Validation de la clé API
+- Gestion des erreurs réseau
+
+### Architecture en 2 appels API
+
+**Pourquoi 2 appels ?**
+1. **Premier appel** (`/list-titles/`) : Rapide, retourne uniquement id, title, year
+2. **Second appel** (`/title/{id}/details/`) : Plus lourd, retourne toutes les infos (poster, synopsis, genres, note, trailer)
+
+**Avantages** :
+- ✅ Liste chargée rapidement
+- ✅ Économie de bande passante
+- ✅ Détails chargés uniquement quand nécessaire
+- ✅ Meilleure expérience utilisateur
+
+### Gestion des états
+Chaque page utilise 3 états distincts :
+- `isLoading` : Affiche un CircularProgressIndicator
+- `errorMessage` : Affiche l'erreur avec bouton "Réessayer"
+- `données chargées` : Affiche le contenu
 
 ### Pages
-- **FilmPage** : Page principale avec la liste des films
-- **FavoritePage** : Page dédiée aux films favoris
-- **GenreQuizPage** : Quiz interactif pour déterminer les préférences
-- **QuizResultsPage** : Affichage des résultats et recommandations
-- **ProfilPage** : Page de profil utilisateur
+
+- **MovieListPage** : Liste principale avec favoris et navigation
+- **MovieDetailPage** : Détails complets avec chargement dynamique
+- **FavoritesPage** : Liste filtrée des films favoris
 
 ### Composants réutilisables
-- **VideoPlayerDialog** : Dialog modal pour la lecture des bandes-annonces
-- **question_text** : Widget personnalisé pour l'affichage des questions
+- **MovieListCard** : Card de film avec avatar coloré et bouton favori
+- **VideoPlayerDialog** : Dialog modal pour la lecture YouTube (si utilisé)
 
 ## 🚀 Installation et utilisation
 
@@ -124,240 +191,185 @@ dependencies:
 - Flutter SDK (version 3.10.7 ou supérieure)
 - Dart SDK
 - Un émulateur Android/iOS ou un appareil physique
+- Clé API Watchmode (gratuite)
 
 ### Installation
 
 1. **Cloner le projet**
-   ```bash
-   git clone <url-du-repo>
-   cd flutter_application_test
-   ```
+```bash
+git clone <url-du-repo>
+cd flutter_application_test
+```
 
 2. **Installer les dépendances**
-   ```bash
-   flutter pub get
-   ```
+```bash
+flutter pub get
+```
 
-3. **Générer le splash screen**
-   ```bash
-   dart run flutter_native_splash:create
-   ```
+3. **Générer le splash screen** (optionnel)
+```bash
+dart run flutter_native_splash:create
+```
 
-4. **Lancer l'application**
-   ```bash
-   flutter run
-   ```
+4. **Lancer l'application avec la clé API**
+```bash
+flutter run --dart-define=WATCHMODE_API_KEY=ta_clé_api_ici
+```
 
 5. **Build pour production** (optionnel)
-   ```bash
-   # Android
-   flutter build apk --release
-   
-   # iOS
-   flutter build ios --release
-   
-   # Web
-   flutter build web --release
-   ```
+```bash
+# Android
+flutter build apk --release --dart-define=WATCHMODE_API_KEY=ta_clé
 
-## 🎮 Guide d'utilisation
+# iOS
+flutter build ios --release --dart-define=WATCHMODE_API_KEY=ta_clé
+
+# Web
+flutter build web --release --dart-define=WATCHMODE_API_KEY=ta_clé
+```
+
+## 🧭 Guide d'utilisation
 
 ### Navigation dans l'application
 
-1. **Page Films** (Page d'accueil)
-   - Parcourez la liste des films disponibles
-   - Appuyez sur ❤️ pour ajouter aux favoris
-   - **Appui long** sur un film pour voir sa bande-annonce
-   - Cliquez sur le bouton **?** pour lancer le quiz de recommandation
+1. **Page Liste des Films** (Page d'accueil)
+   - La liste se charge automatiquement au démarrage
+   - Si erreur (pas de clé API, pas d'internet), message clair avec bouton "Réessayer"
+   - Clique sur ❤️ pour ajouter/retirer des favoris
+   - Clique sur un film pour voir ses détails complets
+   - Icône refresh (🔄) pour recharger la liste
+   - Badge avec compteur de favoris
 
-2. **Quiz de Genre**
-   - Répondez aux 5 questions sur vos préférences
-   - Suivez la barre de progression
-   - Consultez vos résultats et recommandations personnalisées
+2. **Page Détails**
+   - Affichage du poster en grand format
+   - Note, année, genres, synopsis complet
+   - Bouton "Voir la bande-annonce" (si disponible) → ouvre YouTube
+   - Bouton retour pour revenir à la liste
 
 3. **Page Favoris**
-   - Accédez à vos films favoris via l'icône ❤️
-   - Le badge indique le nombre de favoris
-   - Cliquez à nouveau sur ❤️ pour retirer un favori
-
-4. **Bandes-annonces**
-   - Maintenez appuyé sur n'importe quel film
-   - Le lecteur vidéo s'ouvre automatiquement
-   - Fermez avec le bouton X ou retour
+   - Accès via l'icône ❤️ dans l'AppBar
+   - Liste de tous les films favoris
+   - Clique sur un film pour voir ses détails
+   - Clique sur ❤️ pour retirer des favoris
 
 ### Astuces
-- 💡 Le compteur de favoris se met à jour en temps réel
-- 💡 Vous pouvez refaire le quiz autant de fois que vous voulez
-- 💡 Les favoris sont sauvegardés localement et persistent après fermeture
+- 💡 Les favoris sont stockés en mémoire (perdus à la fermeture de l'app)
+- 💡 Les détails sont chargés à la demande (économie de bande passante)
+- 💡 La première lettre du titre génère une couleur unique pour l'avatar
+- 💡 Utilise le bouton refresh si la liste ne se charge pas
 
 ## 📂 Structure du projet
 
 ```
 lib/
 ├── main.dart                    # Point d'entrée de l'application
-├── FilmPage.dart               # Page principale avec la liste des films
-├── FavoritePage.dart           # Page des films favoris
-├── profil.dart                 # Page de profil utilisateur
-├── quizz.dart                  # Quiz personnel (legacy)
-├── genre_quiz_page.dart        # Quiz de recommandation de genres
-├── quiz_results_page.dart      # Page de résultats du quiz
-├── models.dart                 # Modèles de base (Question, Answer)
-├── composant/
-│   ├── question_text.dart      # Widget texte de question
-│   └── video_player_dialog.dart # Dialog de lecture vidéo
-└── services/
-    ├── film_service.dart       # Service de gestion des films
-    └── favorite_service.dart   # Service de gestion des favoris
+├── models/
+│   └── movie.dart              # MovieListItem et Movie
+├── services/
+│   └── movie_service.dart      # Appels API Watchmode avec Dio
+├── pages/
+│   ├── movie_list_page.dart    # Liste des films avec favoris
+│   ├── movie_detail_page.dart  # Détails complets d'un film
+│   └── favorites_page.dart     # Page des favoris
+└── composant/
+    ├── movie_list_card.dart    # Widget card pour liste
+    └── video_player_dialog.dart # Lecteur YouTube (optionnel)
 
 assets/
-├── data/
-│   └── filmdata.json          # Base de données des films
 └── images/
     ├── logo.png               # Logo standard
-    ├── logo-blanc.png         # Logo splash screen
-    ├── background.png         # Image de fond profil
-    ├── profil.png            # Photo de profil
-    └── qrcode.png            # QR Code
+    └── logo-blanc.png         # Logo splash screen
 ```
+
+**Note** : Plus de fichier JSON local, toutes les données viennent de l'API Watchmode.
 
 ## 🎨 Design et UX
 
 ### Palette de couleurs
-- **Fond principal** : `#232323` (Gris très foncé)
-- **Fond secondaire** : `#141620` (Bleu-noir pour l'AppBar)
-- **Gradient principal** : `#1A2482` → `#3B89C0` (Bleu foncé vers bleu clair)
+- **Fond principal** : `#FFFFFF` (Blanc) / `#232323` (Gris foncé en mode sombre)
+- **Cards** : Blanc avec ombres légères
+- **Avatar première lettre** : 10 couleurs générées automatiquement selon la lettre
 - **Accent** : `#FF0000` (Rouge pour les favoris)
-- **Texte** : `#FFFFFF` (Blanc) et variations de gris
+- **Texte** : `#000000` (Noir) et variations de gris
 
 ### Composants UI
-- **Cards avec gradients** : Effet de profondeur avec dégradés bleus
-- **Badges interactifs** : Compteurs de favoris avec animations
-- **Boutons stylisés** : Bordures colorées et feedback visuel au clic
-- **Icons contextuelles** : Font Awesome et Material Icons
-- **Transitions fluides** : Navigation avec animations natives
+- **CircleAvatar coloré** : Première lettre du titre avec couleur unique
+- **ListTile** : Design simple et efficace pour la liste
+- **Chips** : Affichage des genres dans les détails
+- **Badge favoris** : Compteur dans l'AppBar
+- **Boutons d'action** : ElevatedButton pour les actions principales
 
 ### Expérience utilisateur
-- **Feedback immédiat** : Changements visuels instantanés (favoris, sélections)
+- **États de chargement** : CircularProgressIndicator pendant les appels API
+- **Gestion d'erreur** : Messages clairs avec bouton "Réessayer"
 - **Navigation intuitive** : Boutons clairs et accessibles
-- **Gestes naturels** : Appui long pour les bandes-annonces
-- **Messages informatifs** : SnackBars et dialogs pour guider l'utilisateur
 - **Responsive** : Adaptation à toutes les tailles d'écran
-
-## 📝 Fonctionnement du système de recommandation
-
-### Algorithme de quiz
-1. **Collection des préférences** : 5 questions ciblées sur les goûts de l'utilisateur
-2. **Système de points pondérés** : 
-   - Chaque réponse attribue des points à plusieurs genres
-   - Points principaux (3) pour le genre principal
-   - Points secondaires (1-2) pour les genres associés
-3. **Calcul des scores** : Accumulation des points par genre
-4. **Sélection du Top 3** : Tri et sélection des 3 genres avec les meilleurs scores
-
-### Matching des films
-1. **Base de données enrichie** : Chaque film est tagué avec 2-3 genres
-2. **Calcul de correspondance** :
-   - Score de 3 points pour le 1er genre préféré
-   - Score de 2 points pour le 2ème genre préféré
-   - Score de 1 point pour le 3ème genre préféré
-3. **Classement intelligent** : Les films sont triés par score de correspondance
-4. **Top 3 recommandations** : Sélection des 3 films les plus pertinents
-
-### Exemple de mapping
-```dart
-'Inception': ['Science-Fiction', 'Thriller', 'Action']
-'The Matrix': ['Science-Fiction', 'Action', 'Thriller']
-'Forrest Gump': ['Drame', 'Romance', 'Comédie']
-```
-
-## 🎬 Catalogue de films
-
-L'application inclut 15 films cultes :
-- **Inception** (2010) - Science-Fiction, Thriller
-- **Interstellar** (2014) - Science-Fiction, Aventure
-- **The Dark Knight** (2008) - Action, Thriller
-- **The Matrix** (1999) - Science-Fiction, Action
-- **Pulp Fiction** (1994) - Thriller, Drame
-- **Forrest Gump** (1994) - Drame, Romance
-- **The Shawshank Redemption** (1994) - Drame
-- **Gladiator** (2000) - Action, Aventure
-- **Avatar** (2009) - Science-Fiction, Action
-- **Titanic** (1997) - Romance, Drame
-- **The Avengers** (2012) - Action, Science-Fiction
-- **Jurassic Park** (1993) - Science-Fiction, Aventure
-- **The Lord of the Rings** (2001) - Aventure, Fantasy
-- **Spider-Man: No Way Home** (2021) - Action, Science-Fiction
-- **Oppenheimer** (2023) - Drame, Thriller
-
-Chaque film comprend :
-- Titre et année de sortie
-- Affiche haute qualité (TMDB)
-- Description détaillée
-- Lien vers la bande-annonce YouTube
+- **Feedback visuel** : InkWell ripple effect sur les interactions
 
 ## 🎯 Points techniques avancés
 
 ### Gestion d'état
-- **StatefulWidget** : Gestion de l'état local pour les pages interactives
+- **StatefulWidget** : Gestion de l'état local (isLoading, errorMessage, données)
 - **setState()** : Mise à jour réactive de l'interface
-- **Callbacks** : Communication entre widgets parent-enfant
-- **Navigation state** : Préservation de l'état lors des transitions
+- **Callbacks** : Communication entre widgets (toggleFavorite)
+- **Set<int>** : Stockage efficace des IDs favoris (pas de doublons)
 
-### Persistance des données
-- **SharedPreferences** : Sauvegarde locale des favoris
-- **JSON parsing** : Chargement et désérialisation des données films
-- **Async/Await** : Gestion asynchrone du chargement des données
+### Appels API avec Dio
+- **Dio instance** : Client HTTP réutilisable
+- **Query parameters** : Passage de apiKey, limit, types
+- **Try-Catch** : Gestion robuste des erreurs réseau
+- **Async/Await** : Gestion asynchrone des requêtes
+- **String.fromEnvironment()** : Variables de compilation sécurisées
 
 ### Performance
 - **ListView.builder** : Construction optimisée des listes longues
 - **Image.network** : Chargement asynchrone des images avec cache
-- **ErrorBuilder** : Gestion gracieuse des erreurs de chargement
-- **Lazy loading** : Chargement à la demande des ressources
+- **ErrorBuilder** : Placeholder en cas d'erreur de chargement d'image
+- **Chargement lazy** : Détails chargés uniquement à la demande
+- **Modèles séparés** : MovieListItem (léger) vs Movie (complet)
 
 ### Widgets avancés
-- **GestureDetector** : Détection des interactions (tap, long press)
-- **Dialog modal** : Affichage contextuel du lecteur vidéo
-- **Stack & Positioned** : Superposition d'éléments (badges, overlays)
-- **LinearProgressIndicator** : Suivi visuel de la progression
+- **InkWell** : Rend les ListTile cliquables avec ripple effect
+- **CircleAvatar** : Avatar rond avec première lettre colorée
+- **Chip** : Affichage compact des genres
+- **ElevatedButton.icon** : Bouton avec icône et texte
+- **SingleChildScrollView** : Scroll pour contenus longs
 
 ### Navigation
 - **Navigator.push/pop** : Navigation entre les pages
 - **MaterialPageRoute** : Transitions animées natives
-- **Valeurs de retour** : Communication de données via navigation
-- **Callbacks post-navigation** : Rafraîchissement après retour
+- **Passage d'ID** : Navigation vers détails avec movieId uniquement
 
-## 💡 Fonctionnalités à venir (Roadmap)
+## 🧪 Tests (à implémenter)
 
-- [ ] Recherche et filtres de films
-- [ ] Tri par année, titre, genre
-- [ ] Notes et avis utilisateurs
-- [ ] Liste de visionnage (watchlist)
-- [ ] Synchronisation cloud des favoris
-- [ ] Mode clair/sombre
-- [ ] Partage de recommandations
-- [ ] Intégration API TMDB pour plus de films
-- [ ] Notifications de sorties cinéma
-- [ ] Mode hors-ligne complet
+### Tests unitaires
+- **MovieService** :
+  - Test de `getMovies()` avec réponse valide
+  - Test de gestion d'erreur si clé API manquante
+  - Test de parsing JSON vers MovieListItem
+  - Test de `getMovieDetails()` avec réponse valide
 
-## 📸 Assets et ressources
+### Tests de widgets
+- **MovieListPage** :
+  - Test d'affichage du CircularProgressIndicator pendant le chargement
+  - Test d'affichage de la liste après chargement réussi
+  - Test d'affichage du message d'erreur en cas d'échec
+  - Test du bouton "Réessayer"
+  - Test d'ajout/retrait de favoris
+- **MovieDetailPage** :
+  - Test de chargement des détails
+  - Test d'affichage des informations (poster, note, genres, synopsis)
+  - Test du bouton bande-annonce
 
-### Structure des assets
+Exemple de structure de test :
+```dart
+test('getMovies retourne une liste de films', () async {
+  final service = MovieService();
+  final movies = await service.getMovies(limit: 10);
+  expect(movies, isA<List<MovieListItem>>());
+  expect(movies.length, lessThanOrEqualTo(10));
+});
 ```
-assets/
-├── data/
-│   └── filmdata.json      # Base de données des 15 films
-└── images/
-    ├── logo.png           # Logo standard
-    ├── logo-blanc.png     # Logo splash screen (Android 12+)
-    ├── background.png     # Image de fond profil
-    ├── profil.png         # Photo de profil
-    └── qrcode.png         # QR Code
-```
-
-### Sources des images
-- **Affiches de films** : The Movie Database (TMDB) API
-- **Bandes-annonces** : YouTube (liens directs)
-
 ## 🔧 Configuration avancée
 
 ### Splash Screen
@@ -372,99 +384,99 @@ flutter_native_splash:
   fullscreen: true
 ```
 
-### Favoris (SharedPreferences)
-Les favoris sont stockés localement avec la clé `favorite_movies` :
+### Favoris (en mémoire)
+Les favoris sont actuellement stockés en mémoire avec un `Set<int>` :
 ```dart
-// Format: Liste d'IDs de films
-['Inception', 'The Matrix', 'Interstellar']
+final Set<int> favorites = {}; // IDs des films favoris
 ```
+⚠️ **Note** : Les favoris sont perdus à la fermeture de l'app (pas de persistance pour l'instant).
 
 ## 🐛 Dépannage
 
 ### Problèmes courants
 
+**Erreur "Clé API manquante"**
+```
+Exception: Clé API manquante ! Lance l'app avec --dart-define=WATCHMODE_API_KEY=ta_clé
+```
+- **Solution** : Lance l'app avec `flutter run --dart-define=WATCHMODE_API_KEY=ta_clé`
+- Vérifie que tu as bien configuré la clé dans `.vscode/launch.json` ou Android Studio
+
+**Les films ne se chargent pas**
+- Vérifie ta connexion internet
+- Vérifie que ta clé API Watchmode est valide
+- Clique sur le bouton "Réessayer" si l'erreur persiste
+- Regarde les logs dans le terminal pour plus de détails
+
 **Les images ne se chargent pas**
-- Vérifiez votre connexion internet
-- Les URLs TMDB sont parfois bloquées par certains pare-feu
-- Solution : L'app affiche une icône de secours en cas d'erreur
-
-**Les vidéos ne se lancent pas**
-- Assurez-vous que flutter_inappwebview est bien installé
-- Sur iOS, vérifiez les permissions dans Info.plist
-- Les vidéos nécessitent une connexion internet active
-
-**Les favoris ne persistent pas**
-- Vérifiez que path_provider est correctement installé
-- Sur iOS, les permissions de stockage peuvent être requises
-- Réinstallez l'app si le problème persiste
+- Les URLs de posters peuvent être null pour certains films
+- L'app affiche un placeholder (icône film grise) en cas d'erreur
+- Vérifie ta connexion internet
 
 **Erreur de build**
 ```bash
 # Nettoyez et régénérez
 flutter clean
 flutter pub get
-flutter run
+flutter run --dart-define=WATCHMODE_API_KEY=ta_clé
 ```
+
+**Erreur Dio "DioException"**
+- Problème de connexion réseau
+- API Watchmode peut être temporairement indisponible
+- Limite de requêtes API dépassée (100/jour en gratuit)
 
 ## 📱 Plateformes supportées
 
 - ✅ **Android** : Testé sur Android 8.0+
 - ✅ **iOS** : Compatible iOS 12.0+
-- ✅ **Web** : Fonctionnel sur tous les navigateurs modernes
+- ⚠️ **Web** : Fonctionnel mais CORS peut bloquer les requêtes API
 - ✅ **Windows** : Support desktop complet
 - ✅ **Linux** : Compatible
 - ✅ **macOS** : Support natif
 
-## 🏆 Points forts du projet
+## 🎯 Checklist des fonctionnalités du TP
 
-### Techniques
-- ✅ Architecture propre avec séparation des responsabilités (Services, Models, Pages)
-- ✅ Gestion d'état efficace avec StatefulWidget
-- ✅ Persistance des données locale
-- ✅ Algorithme de recommandation intelligent
-- ✅ Gestion des erreurs et états de chargement
-- ✅ Code formaté et commenté
+### ✅ Objectifs complétés
+- [x] Charger des films depuis l'API Watchmode avec Dio
+- [x] Afficher une liste de films récents avec première lettre colorée et favoris
+- [x] Gérer les états de chargement et d'erreur sur toutes les pages avec messages clairs et bouton réessayer
+- [x] Faire un second appel API pour charger les détails complets (poster, synopsis, note, genres)
+- [x] Afficher une page de détails riche avec toutes les informations du film
+- [x] Gérer les favoris avec navigation entre liste principale et favoris
+- [x] Respecter les bonnes pratiques (extraction de widgets, gestion d'erreurs, instance globale du service)
 
-### Design
-- ✅ Interface moderne et cohérente
-- ✅ Thème sombre élégant
-- ✅ Animations et transitions fluides
-- ✅ Feedback visuel immédiat
-- ✅ Responsive design
+### 🔄 À implémenter
+- [ ] Tests unitaires pour MovieService
+- [ ] Tests de widgets pour MovieListPage et MovieDetailPage
+- [ ] Persistance des favoris avec SharedPreferences (optionnel)
 
-### Fonctionnalités
-- ✅ Système de favoris persistant
-- ✅ Quiz de recommandation interactif
-- ✅ Lecteur vidéo intégré
-- ✅ Navigation intuitive
-- ✅ Expérience utilisateur soignée
+## 📚 Concepts clés expliqués
 
-## 📚 Apprentissages clés
+### String.fromEnvironment()
+Récupère une variable passée via `--dart-define`. Permet de ne pas hardcoder les secrets dans le code.
 
-- **Flutter & Dart** : Maîtrise des concepts fondamentaux
-- **Architecture mobile** : Organisation et structure d'une app complète
-- **Gestion d'état** : StatefulWidget, callbacks, navigation state
-- **Persistance** : SharedPreferences, JSON, stockage local
-- **UI/UX** : Design patterns, Material Design, animations
-- **Services** : Création de services réutilisables
-- **Algorithmes** : Système de scoring et recommandation
-- **Async/Await** : Programmation asynchrone en Dart
+### Deux modèles séparés
+- `MovieListItem` : Léger (id, title, year) pour la liste
+- `Movie` : Complet (+ poster, genres, synopsis, note) pour les détails
+- **Avantage** : Économie de bande passante et chargement rapide
 
-## 👥 Contributeurs
+### Gestion des 3 états
+1. `isLoading = true` → Affiche CircularProgressIndicator
+2. `errorMessage != null` → Affiche erreur + bouton "Réessayer"
+3. Données chargées → Affiche le contenu
 
-- **Mael Valin** - Développement complet
-- **Enseignants** - Encadrement et conseils
+### Nullable types (?)
+`String?` signifie que la valeur peut être `null`. Certains films n'ont pas de poster ou trailer.
+
+### Opérateurs null-safe
+- `?.` : Appelle la méthode uniquement si non-null
+- `??` : Retourne la valeur de droite si la gauche est null
+- `!` : Force l'accès (crash si null, à utiliser avec précaution)
 
 ## 📄 Licence
 
 Ce projet est un travail académique réalisé dans le cadre d'un cours universitaire (S6 - 2026).
-
-## 🙏 Remerciements
-
-- The Movie Database (TMDB) pour les affiches de films
-- YouTube pour l'hébergement des bandes-annonces
-- La communauté Flutter pour les packages open-source
-- Les enseignants pour leur accompagnement
 
 ---
 
@@ -473,9 +485,7 @@ Ce projet est un travail académique réalisé dans le cadre d'un cours universi
 **Dernière mise à jour** : Janvier 2026  
 **Version** : 1.0.0
 
-**screen**
+**Screens**
 
 <img src="screen app/film1.png">
 <img src="screen app/film2.png">
-<img src="screen app/quizzfilm1.png">
-<img src="screen app/quizzfilm2.png">
