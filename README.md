@@ -46,3 +46,4 @@ Si tu veux une version plus détaillée (captures d'écran, instructions pour co
 
 ![Profil](screen app/profilpage.png)
 
+<img src="screen app/profilpage.png" alt="Profil" width="200" />
