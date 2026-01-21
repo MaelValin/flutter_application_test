@@ -56,48 +56,6 @@ dependencies:
   flutter_native_splash: ^2.4.7
 ```
 
-## 🚀 Installation et utilisation
-
-### Prérequis
-- Flutter SDK (version 3.10.7 ou supérieure)
-- Dart SDK
-- Un émulateur Android/iOS ou un appareil physique
-
-### Installation
-
-1. **Cloner le projet**
-   ```bash
-   git clone <url-du-repo>
-   cd flutter_application_test
-   ```
-
-2. **Installer les dépendances**
-   ```bash
-   flutter pub get
-   ```
-
-3. **Générer le splash screen**
-   ```bash
-   dart run flutter_native_splash:create
-   ```
-
-4. **Lancer l'application**
-   ```bash
-   flutter run
-   ```
-
-## 📂 Structure du projet
-
-```
-lib/
-├── main.dart              # Point d'entrée de l'application
-├── quizz.dart            # Page du quiz
-├── profil.dart           # Page portfolio
-├── models.dart           # Modèles de données (Question, Answer)
-└── composant/
-    └── question_text.dart # Widget texte de question
-```
-
 ## 🎨 Design
 
 - **Thème sombre** : Fond gris foncé (#232323)
