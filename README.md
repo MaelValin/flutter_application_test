@@ -1,16 +1,46 @@
-# flutter_application_test
 
-A new Flutter project.
+## TP1 - Projet Flutter: Page Profil
+Ce dépôt contient le travail du TP1 pour le cours (semestre 6) : création d'une page "Profil" dans une application Flutter.
 
-## Getting Started
+## But
 
-This project is a starting point for a Flutter application.
+Réaliser une page profil utilisateur simple affichant une image, le nom, et quelques informations basiques. L'image est fournie dans les assets et utilisée dans l'écran correspondant.
 
-A few resources to get you started if this is your first Flutter project:
+## Ce qui a été fait
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Création d'une page profil dans `lib/` (écran de profil).
+- Intégration d'une image de profil dans `assets/images/profil.png` et utilisation dans l'écran ("screen app").
+- Mise à jour des services de partie et de la navigation pour intégrer l'écran si nécessaire.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Fichiers importants
+
+- `lib/accueil_page.dart` : page d'accueil / point d'entrée vers les écrans.
+- `lib/jeu_page.dart` : page principale du jeu (gestion des phases).
+- `lib/jeu_page_nuit.dart` : écran de la phase de nuit.
+- `lib/partie_service.dart` : logique de la partie et gestion des joueurs.
+- `assets/images/profil.png` : image de profil utilisée dans l'application.
+
+## Comment lancer l'application
+
+1. Installer les dépendances :
+
+```bash
+flutter pub get
+```
+
+2. Lancer sur un émulateur ou un appareil connecté :
+
+```bash
+flutter run
+```
+
+## Remarques
+
+- L'image de profil se trouve dans `assets/images/profil.png` — vérifier que le chemin est déclaré dans `pubspec.yaml` si besoin.
+- Ce TP est volontairement simple : si tu veux, je peux ajouter des champs éditables sur la page profil, sauvegarde locale ou animations.
+
+---
+
+Si tu veux une version plus détaillée (captures d'écran, instructions pour commits, livrable), dis-le et je complète.
+
+
