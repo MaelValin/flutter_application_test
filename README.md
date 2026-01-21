@@ -36,7 +36,7 @@ flutter run
 
 ## Remarques
 
-- L'image de profil se trouve dans `assets/images/profil.png` — vérifier que le chemin est déclaré dans `pubspec.yaml` si besoin.
+- L'image de profil se trouve dans `screen app/profilpage.png` — vérifier que le chemin est déclaré dans `pubspec.yaml` si besoin.
 - Ce TP est volontairement simple : si tu veux, je peux ajouter des champs éditables sur la page profil, sauvegarde locale ou animations.
 
 ---
