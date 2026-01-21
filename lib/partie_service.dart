@@ -9,6 +9,8 @@ class PartieService extends ChangeNotifier {
   int _tourActuel = 0;
   Phase _phaseActuelle = Phase.preparation;
   bool _partieEnCours = false;
+  int _indexRoleActuel = 0; // Index du rôle actuel dans l'ordre de nuit
+  String? _victimedeLaNuit; // ID du joueur ciblé par les loups
 
   // Getters
   List<Joueur> get joueurs => _joueurs;
@@ -18,6 +20,8 @@ class PartieService extends ChangeNotifier {
   int get tourActuel => _tourActuel;
   Phase get phaseActuelle => _phaseActuelle;
   bool get partieEnCours => _partieEnCours;
+  int get indexRoleActuel => _indexRoleActuel;
+  String? get victimeDeLaNuit => _victimedeLaNuit;
 
   // Obtenir l'ordre de jeu pour la nuit
   List<Role> get ordreNuit {
@@ -26,12 +30,47 @@ class PartieService extends ChangeNotifier {
     return rolesPresents;
   }
 
+  // Obtenir le rôle actuel dans l'ordre de nuit
+  Role? get roleActuel {
+    final ordre = ordreNuit;
+    if (ordre.isEmpty || _indexRoleActuel >= ordre.length) return null;
+    return ordre[_indexRoleActuel];
+  }
+
+  // Obtenir les joueurs ayant le rôle actuel
+  List<Joueur> get joueursRoleActuel {
+    final role = roleActuel;
+    if (role == null) return [];
+    return joueursVivants.where((j) => j.role == role).toList();
+  }
+
+  // Passer au rôle suivant dans l'ordre de nuit
+  void passerRoleSuivant() {
+    final ordre = ordreNuit;
+    if (_indexRoleActuel < ordre.length - 1) {
+      _indexRoleActuel++;
+    } else {
+      // Fin de la nuit, passer au jour
+      _indexRoleActuel = 0;
+      _phaseActuelle = Phase.jour;
+    }
+    notifyListeners();
+    _sauvegarder();
+  }
+
+  // Réinitialiser l'index des rôles au début de la nuit
+  void _reinitialiserIndexRole() {
+    _indexRoleActuel = 0;
+    _victimedeLaNuit = null;
+  }
+
   // Démarrer une nouvelle partie
   void demarrerPartie() {
     _partieEnCours = true;
     _tourActuel = 1;
     _phaseActuelle = Phase.nuit;
     _tours = [TourDeJeu(numero: 1)];
+    _reinitialiserIndexRole();
     notifyListeners();
     _sauvegarder();
   }
@@ -160,9 +199,16 @@ class PartieService extends ChangeNotifier {
     switch (_phaseActuelle) {
       case Phase.preparation:
         _phaseActuelle = Phase.nuit;
+        _reinitialiserIndexRole();
         break;
       case Phase.nuit:
         _phaseActuelle = Phase.jour;
+        _reinitialiserIndexRole();
+        // Appliquer la mort de la victime de la nuit
+        if (_victimedeLaNuit != null) {
+          eliminerJoueur(_victimedeLaNuit!, raison: 'Tué par les loups-garous');
+          _victimedeLaNuit = null;
+        }
         break;
       case Phase.jour:
         _phaseActuelle = Phase.vote;
@@ -171,10 +217,24 @@ class PartieService extends ChangeNotifier {
         _tourActuel++;
         _tours.add(TourDeJeu(numero: _tourActuel));
         _phaseActuelle = Phase.nuit;
+        _reinitialiserIndexRole();
         break;
       case Phase.termine:
         break;
     }
+    notifyListeners();
+    _sauvegarder();
+  }
+
+  // Définir la victime de la nuit (loups-garous)
+  void definirVictimeDeLaNuit(String joueurId) {
+    _victimedeLaNuit = joueurId;
+    final joueur = _joueurs.firstWhere((j) => j.id == joueurId);
+    ajouterAction(
+      Role.loupGarou,
+      '${joueur.nom} a été ciblé par les loups',
+      cibleId: joueurId,
+    );
     notifyListeners();
     _sauvegarder();
   }
@@ -213,6 +273,8 @@ class PartieService extends ChangeNotifier {
       'tourActuel': _tourActuel,
       'phaseActuelle': _phaseActuelle.name,
       'partieEnCours': _partieEnCours,
+      'indexRoleActuel': _indexRoleActuel,
+      'victimeDeLaNuit': _victimedeLaNuit,
     };
     await prefs.setString('partie_loup_garou', jsonEncode(data));
   }
@@ -235,6 +297,8 @@ class PartieService extends ChangeNotifier {
         orElse: () => Phase.preparation,
       );
       _partieEnCours = data['partieEnCours'] ?? false;
+      _indexRoleActuel = data['indexRoleActuel'] ?? 0;
+      _victimedeLaNuit = data['victimeDeLaNuit'];
       notifyListeners();
     }
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'partie_service.dart';
 import 'loup_garou_models.dart';
+import 'jeu_page_nuit.dart';
 
 class JeuPage extends StatelessWidget {
   const JeuPage({super.key});
@@ -52,31 +53,94 @@ class JeuPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1A237E),
-              Color(0xFF283593),
-            ],
+            colors: [Color(0xFF1A237E), Color(0xFF283593)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
         child: partieService.phaseActuelle == Phase.termine
             ? _buildFinPartie(context, partieService)
+            : partieService.phaseActuelle == Phase.nuit
+            ? _buildNuitPhase(context, partieService)
             : Column(
                 children: [
-                  // Ordre de jeu (pour la nuit)
-                  if (partieService.phaseActuelle == Phase.nuit)
-                    _buildOrdreNuit(partieService),
-
                   // Liste des joueurs
-                  Expanded(
-                    child: _buildListeJoueurs(context, partieService),
-                  ),
+                  Expanded(child: _buildListeJoueurs(context, partieService)),
 
                   // Bouton phase suivante
                   _buildControlsBottom(context, partieService),
                 ],
               ),
+      ),
+    );
+  }
+
+  Widget _buildNuitPhase(BuildContext context, PartieService service) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                color: const Color(0xFF000051),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xFFFFD700), width: 3),
+              ),
+              child: Column(
+                children: [
+                  const Text('🌙', style: TextStyle(fontSize: 80)),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Phase de Nuit',
+                    style: TextStyle(
+                      color: Color(0xFFFFD700),
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Tour ${service.tourActuel}',
+                    style: const TextStyle(color: Colors.white70, fontSize: 18),
+                  ),
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Les rôles vont se réveiller un par un',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const JeuPageNuit(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.play_arrow, size: 28),
+                label: const Text(
+                  'COMMENCER LA NUIT',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFD700),
+                  foregroundColor: const Color(0xFF1A237E),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -117,7 +181,10 @@ class JeuPage extends StatelessWidget {
               final index = entry.key;
               final role = entry.value;
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white10,
                   borderRadius: BorderRadius.circular(20),
@@ -136,10 +203,7 @@ class JeuPage extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(role.emoji, style: const TextStyle(fontSize: 20)),
                     const SizedBox(width: 4),
-                    Text(
-                      role.nom,
-                      style: const TextStyle(color: Colors.white),
-                    ),
+                    Text(role.nom, style: const TextStyle(color: Colors.white)),
                   ],
                 ),
               );
@@ -177,9 +241,7 @@ class JeuPage extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
         side: BorderSide(
-          color: joueur.estVivant
-              ? const Color(0xFFFFD700)
-              : Colors.white24,
+          color: joueur.estVivant ? const Color(0xFFFFD700) : Colors.white24,
           width: joueur.estVivant ? 2 : 1,
         ),
       ),
@@ -201,11 +263,7 @@ class JeuPage extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: Colors.black54,
                   ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                    size: 40,
-                  ),
+                  child: const Icon(Icons.close, color: Colors.red, size: 40),
                 ),
               ),
             if (joueur.estAmoureux)
@@ -250,16 +308,17 @@ class JeuPage extends StatelessWidget {
                 spacing: 4,
                 children: joueur.effets
                     .where((e) => e.actif)
-                    .map((effet) => Chip(
-                          label: Text(
-                            effet.type.emoji,
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                          backgroundColor: effet.type.couleur,
-                          padding: EdgeInsets.zero,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                        ))
+                    .map(
+                      (effet) => Chip(
+                        label: Text(
+                          effet.type.emoji,
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        backgroundColor: effet.type.couleur,
+                        padding: EdgeInsets.zero,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                    )
                     .toList(),
               ),
           ],
@@ -337,9 +396,7 @@ class JeuPage extends StatelessWidget {
   Widget _buildControlsBottom(BuildContext context, PartieService service) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.black26,
-      ),
+      decoration: const BoxDecoration(color: Colors.black26),
       child: SafeArea(
         top: false,
         child: SizedBox(
@@ -398,8 +455,9 @@ class JeuPage extends StatelessWidget {
   }
 
   Widget _buildFinPartie(BuildContext context, PartieService service) {
-    final loups =
-        service.joueurs.where((j) => j.role == Role.loupGarou && j.estVivant);
+    final loups = service.joueurs.where(
+      (j) => j.role == Role.loupGarou && j.estVivant,
+    );
     final gagnant = loups.isEmpty ? 'VILLAGEOIS' : 'LOUPS-GAROUS';
     final emoji = loups.isEmpty ? '🎉' : '🐺';
 
@@ -441,10 +499,7 @@ class JeuPage extends StatelessWidget {
                   const SizedBox(height: 30),
                   Text(
                     'Partie terminée en ${service.tourActuel} tours',
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 18,
-                    ),
+                    style: const TextStyle(color: Colors.white70, fontSize: 18),
                   ),
                 ],
               ),
@@ -464,10 +519,7 @@ class JeuPage extends StatelessWidget {
                 icon: const Icon(Icons.home, size: 28),
                 label: const Text(
                   'RETOUR À L\'ACCUEIL',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFFD700),
@@ -539,8 +591,10 @@ class JeuPage extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Annuler',
-                  style: TextStyle(color: Colors.white70)),
+              child: const Text(
+                'Annuler',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -588,7 +642,10 @@ class JeuPage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Annuler', style: TextStyle(color: Colors.white70)),
+            child: const Text(
+              'Annuler',
+              style: TextStyle(color: Colors.white70),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -625,7 +682,10 @@ class JeuPage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Annuler', style: TextStyle(color: Colors.white70)),
+            child: const Text(
+              'Annuler',
+              style: TextStyle(color: Colors.white70),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
