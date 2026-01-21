@@ -25,7 +25,14 @@ class PartieService extends ChangeNotifier {
 
   // Obtenir l'ordre de jeu pour la nuit
   List<Role> get ordreNuit {
-    final rolesPresents = joueursVivants.map((j) => j.role).toSet().toList();
+    // Ne garder que les rôles qui ont une action pendant la nuit (ordre < 100)
+    final rolesPresents = joueursVivants
+        .map((j) => j.role)
+        .where(
+          (role) => role.ordre < 100,
+        ) // Exclure les rôles sans action nocturne
+        .toSet()
+        .toList();
     rolesPresents.sort((a, b) => a.ordre.compareTo(b.ordre));
     return rolesPresents;
   }
@@ -107,20 +114,26 @@ class PartieService extends ChangeNotifier {
 
   // Éliminer un joueur
   void eliminerJoueur(String id, {String? raison}) {
-    final joueur = _joueurs.firstWhere((j) => j.id == id);
+    final index = _joueurs.indexWhere((j) => j.id == id);
+    if (index == -1) return; // Joueur introuvable
+
+    final joueur = _joueurs[index];
     joueur.estVivant = false;
 
-    // Si le joueur est amoureux, éliminer aussi son amoureux
+    // Si le joueur est amoureux, éliminer aussi son amoureux (si présent)
     if (joueur.estAmoureux && joueur.idAmoureux != null) {
-      final amoureux = _joueurs.firstWhere(
+      final amoureuxIndex = _joueurs.indexWhere(
         (j) => j.id == joueur.idAmoureux && j.estVivant,
       );
-      amoureux.estVivant = false;
-      ajouterAction(
-        Role.cupidon,
-        '${amoureux.nom} meurt de chagrin (amoureux)',
-        cibleId: amoureux.id,
-      );
+      if (amoureuxIndex != -1) {
+        final amoureux = _joueurs[amoureuxIndex];
+        amoureux.estVivant = false;
+        ajouterAction(
+          Role.cupidon,
+          '${amoureux.nom} meurt de chagrin (amoureux)',
+          cibleId: amoureux.id,
+        );
+      }
     }
 
     if (_tours.isNotEmpty) {
@@ -138,7 +151,9 @@ class PartieService extends ChangeNotifier {
 
   // Ajouter un effet à un joueur
   void ajouterEffet(String joueurId, TypeEffet type, String description) {
-    final joueur = _joueurs.firstWhere((j) => j.id == joueurId);
+    final index = _joueurs.indexWhere((j) => j.id == joueurId);
+    if (index == -1) return; // Joueur introuvable
+    final joueur = _joueurs[index];
     final effet = Effet(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
       type: type,
@@ -152,7 +167,9 @@ class PartieService extends ChangeNotifier {
 
   // Retirer un effet
   void retirerEffet(String joueurId, String effetId) {
-    final joueur = _joueurs.firstWhere((j) => j.id == joueurId);
+    final index = _joueurs.indexWhere((j) => j.id == joueurId);
+    if (index == -1) return; // Joueur introuvable
+    final joueur = _joueurs[index];
     joueur.retirerEffet(effetId);
     notifyListeners();
     _sauvegarder();
@@ -160,8 +177,12 @@ class PartieService extends ChangeNotifier {
 
   // Définir deux joueurs comme amoureux
   void definirAmoureux(String joueur1Id, String joueur2Id) {
-    final j1 = _joueurs.firstWhere((j) => j.id == joueur1Id);
-    final j2 = _joueurs.firstWhere((j) => j.id == joueur2Id);
+    final index1 = _joueurs.indexWhere((j) => j.id == joueur1Id);
+    final index2 = _joueurs.indexWhere((j) => j.id == joueur2Id);
+    if (index1 == -1 || index2 == -1) return; // Un des joueurs introuvable
+
+    final j1 = _joueurs[index1];
+    final j2 = _joueurs[index2];
 
     j1.estAmoureux = true;
     j1.idAmoureux = joueur2Id;

@@ -310,9 +310,16 @@ class JeuPageNuit extends StatelessWidget {
   }
 
   Widget _buildSorciereActions(BuildContext context, PartieService service) {
-    final victime = service.victimeDeLaNuit != null
-        ? service.joueurs.firstWhere((j) => j.id == service.victimeDeLaNuit)
-        : null;
+    // Récupérer la victime de la nuit de façon sûre (évite "Bad state: No element")
+    Joueur? victime;
+    if (service.victimeDeLaNuit != null) {
+      final matches = service.joueurs.where(
+        (j) => j.id == service.victimeDeLaNuit,
+      );
+      victime = matches.isNotEmpty ? matches.first : null;
+    } else {
+      victime = null;
+    }
 
     return Column(
       children: [
@@ -344,8 +351,8 @@ class JeuPageNuit extends StatelessWidget {
             onPressed: () {
               service.ajouterAction(
                 Role.sorciere,
-                '${victime.nom} a été sauvé par la potion de vie',
-                cibleId: victime.id,
+                '${victime!.nom} a été sauvé par la potion de vie',
+                cibleId: victime!.id,
               );
               service.definirVictimeDeLaNuit(''); // Annuler la mort
               _showConfirmation(
