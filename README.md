@@ -487,5 +487,7 @@ Ce projet est un travail académique réalisé dans le cadre d'un cours universi
 
 **Screens**
 
-<img src="screen app/film1.png">
-<img src="screen app/film2.png">
+<img src="screen app/film2-1.png">
+<img src="screen app/film2-2.png">
+<img src="screen app/film2-3.png">
+
