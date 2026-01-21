@@ -472,3 +472,10 @@ Ce projet est un travail académique réalisé dans le cadre d'un cours universi
 
 **Dernière mise à jour** : Janvier 2026  
 **Version** : 1.0.0
+
+**screen**
+
+<img src="screen app/film1.png">
+<img src="screen app/film2.png">
+<img src="screen app/quizzfilm1.png">
+<img src="screen app/quizzfilm2.png">
